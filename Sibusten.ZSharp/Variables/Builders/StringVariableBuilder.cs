@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using Sibusten.ZSharp.Flow;
 
-namespace Sibusten.ZSharp.Variables.Definitions
+namespace Sibusten.ZSharp.Variables.Builders
 {
     public class StringVariableBuilder<TNext> : Chainable<string, TNext>
     {

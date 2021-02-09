@@ -1,12 +1,1 @@
-﻿using System;
-
-namespace Sibusten.ZSharp.Examples
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
-    }
-}
+﻿_=Z.z.o.c.s.H.e.l.l.o.Z.s.W.o.r.l.d.Z.e.Z.n.Z.z;

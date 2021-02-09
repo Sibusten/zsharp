@@ -14,6 +14,23 @@ namespace Sibusten.ZSharp.Output
             _next = next;
         }
 
-        public VariableSelector<TNext> c => new VariableSelector<TNext>(_engine, var => { Console.Write(var); return _next; });
+        /// <summary>
+        /// Console.Write
+        /// </summary>
+        public VariableSelector<TNext> c => new VariableSelector<TNext>(_engine, variable =>
+        {
+            Console.Write(variable);
+            return _next;
+        });
+
+        /// <summary>
+        /// Console.WriteLine
+        /// </summary>
+        /// <value></value>
+        public VariableSelector<TNext> C => new VariableSelector<TNext>(_engine, variable =>
+        {
+            Console.WriteLine(variable);
+            return _next;
+        });
     }
 }

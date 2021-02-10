@@ -31,3 +31,6 @@ _=Z.z  // Begin program
         .o.C .s.B.Z.z  // Output to console with newline: string "B"
     .Z  // End if
 .Z.z;  // End program
+
+// Using numbers
+_=Z.z.s.a.n.f.Z.o.C.r.a.s.b.o.a.r.a.n.b.Z.o.C.r.b.Z.z;

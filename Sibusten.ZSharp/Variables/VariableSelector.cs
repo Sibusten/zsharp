@@ -10,6 +10,7 @@ namespace Sibusten.ZSharp.Variables
         public VariableSelector(Func<Func<Context, object>, TNext> callback) : base(callback) { }
 
         public BooleanVariableBuilder<TNext> b => new BooleanVariableBuilder<TNext>(valueCallback => Callback(context => valueCallback(context)));
+        public NumericVariableBuilder<TNext> n => new NumericVariableBuilder<TNext>(valueCallback => Callback(context => valueCallback(context)));
         public OperatorSelector<TNext> o => new OperatorSelector<TNext>(operatorCallback => Callback(context => operatorCallback(context)));
         public RegisterSelector<TNext> r => new RegisterSelector<TNext>(registerCallback => Callback(context => context.Registers[registerCallback(context)]));
         public StringVariableBuilder<TNext> s => new StringVariableBuilder<TNext>(valueCallback => Callback(context => valueCallback(context)));

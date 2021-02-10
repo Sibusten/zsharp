@@ -7,16 +7,16 @@ namespace Sibusten.ZSharp.Variables
 {
     public class VariableSelector<TNext> : Chainable<object, TNext>
     {
-        private readonly ZEngine _engine;
+        private readonly Block _block;
 
-        public VariableSelector(ZEngine engine, Func<object, TNext> callback) : base(callback)
+        public VariableSelector(Block block, Func<object, TNext> callback) : base(callback)
         {
-            _engine = engine;
+            _block = block;
         }
 
         public BooleanVariableBuilder<TNext> b => new BooleanVariableBuilder<TNext>(value => Callback(value));
-        public OperatorSelector<TNext> o => new OperatorSelector<TNext>(_engine, Callback);
-        public RegisterSelector<TNext> r => new RegisterSelector<TNext>(register => Callback(_engine.Registers[register]));
+        public OperatorSelector<TNext> o => new OperatorSelector<TNext>(_block, Callback);
+        public RegisterSelector<TNext> r => new RegisterSelector<TNext>(register => Callback(_block.Registers[register]));
         public StringVariableBuilder<TNext> s => new StringVariableBuilder<TNext>(Callback);
     }
 }

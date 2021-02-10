@@ -1,23 +1,24 @@
 using System;
+using Sibusten.ZSharp.Flow;
 using Sibusten.ZSharp.Variables;
 
 namespace Sibusten.ZSharp.Output
 {
     public class OutputSelector<TNext>
     {
-        private readonly ZEngine _engine;
+        private readonly Block _block;
         private readonly TNext _next;
 
-        public OutputSelector(ZEngine engine, TNext next)
+        public OutputSelector(Block block, TNext next)
         {
-            _engine = engine;
+            _block = block;
             _next = next;
         }
 
         /// <summary>
         /// Console.Write
         /// </summary>
-        public VariableSelector<TNext> c => new VariableSelector<TNext>(_engine, variable =>
+        public VariableSelector<TNext> c => new VariableSelector<TNext>(_block, variable =>
         {
             Console.Write(variable);
             return _next;
@@ -27,7 +28,7 @@ namespace Sibusten.ZSharp.Output
         /// Console.WriteLine
         /// </summary>
         /// <value></value>
-        public VariableSelector<TNext> C => new VariableSelector<TNext>(_engine, variable =>
+        public VariableSelector<TNext> C => new VariableSelector<TNext>(_block, variable =>
         {
             Console.WriteLine(variable);
             return _next;

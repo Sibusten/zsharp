@@ -40,6 +40,14 @@ namespace Sibusten.ZSharp.Flow
 
         public OutputSelector<TNext, Block<TNext>> o => new OutputSelector<TNext, Block<TNext>>(this, this);
 
+        public VariableSelector<Block<IfStatement<Block<TNext>>>> i => new VariableSelector<Block<IfStatement<Block<TNext>>>>(conditionCallback =>
+        {
+            IfStatement<Block<TNext>> ifStatement = new IfStatement<Block<TNext>>(this, conditionCallback);
+            AddStatement(context => ifStatement.Execute(context));
+
+            return ifStatement.IfBlock;
+        });
+
         public TNext Z => _parent;
     }
 }

@@ -5,7 +5,7 @@ namespace Sibusten.ZSharp.Variables
 {
     public class RegisterSelector<TNext> : Chainable<int, TNext>
     {
-        public RegisterSelector(Func<Func<Block, int>, TNext> callback) : base(callback) { }
+        public RegisterSelector(Func<Func<Context, int>, TNext> callback) : base(callback) { }
 
         public TNext a => Callback(context => 0);
         public TNext b => Callback(context => 1);

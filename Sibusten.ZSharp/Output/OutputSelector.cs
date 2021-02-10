@@ -4,12 +4,12 @@ using Sibusten.ZSharp.Variables;
 
 namespace Sibusten.ZSharp.Output
 {
-    public class OutputSelector<TNext>
+    public class OutputSelector<TBlock, TNext>
     {
-        private readonly Block _block;
+        private readonly Block<TBlock> _block;
         private readonly TNext _next;
 
-        public OutputSelector(Block block, TNext next)
+        public OutputSelector(Block<TBlock> block, TNext next)
         {
             _block = block;
             _next = next;

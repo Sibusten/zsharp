@@ -8,7 +8,7 @@ namespace Sibusten.ZSharp.Variables.Builders
     {
         private StringBuilder _sb = new StringBuilder();
 
-        public StringVariableBuilder(Func<Func<Block, string>, TNext> callback) : base(callback) { }
+        public StringVariableBuilder(Func<Func<Context, string>, TNext> callback) : base(callback) { }
 
         internal StringVariableBuilder<TNext> AppendChar(char c)
         {

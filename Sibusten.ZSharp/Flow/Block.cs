@@ -5,46 +5,41 @@ using Sibusten.ZSharp.Variables;
 
 namespace Sibusten.ZSharp.Flow
 {
-    public class Block
+    public class Block<TNext>
     {
-        internal const int MaxRegisters = 52;
+        private readonly TNext _parent;
+        private List<Action<Context>> _statements = new List<Action<Context>>();
+        private Context _context = new Context();
 
-        private readonly Block? _parent;
-        internal object[] Registers = new object[MaxRegisters];
-        private List<Action<Block>> _statements = new List<Action<Block>>();
-
-        public Block(Block? parent = null)
+        public Block(TNext parent)
         {
             _parent = parent;
         }
 
-        public void AddStatement(Action<Block> statement)
+        public void AddStatement(Action<Context> statement)
         {
             _statements.Add(statement);
         }
 
-        private Block? Execute()
+        internal void Execute()
         {
-            foreach (Action<Block> statement in _statements)
+            foreach (Action<Context> statement in _statements)
             {
-                statement(this);
+                statement(_context);
             }
-
-            // TODO: Block shouldn't be executed by itself. Need a top level class to start the whole thing
-            return _parent;
         }
 
-        public RegisterSelector<VariableSelector<Block>> s => new RegisterSelector<VariableSelector<Block>>(registerCallback =>
+        public RegisterSelector<VariableSelector<Block<TNext>>> s => new RegisterSelector<VariableSelector<Block<TNext>>>(registerCallback =>
         {
-            return new VariableSelector<Block>(variableCallback =>
+            return new VariableSelector<Block<TNext>>(variableCallback =>
             {
                 AddStatement(context => context.Registers[registerCallback(context)] = variableCallback(context));
                 return this;
             });
         });
 
-        public OutputSelector<Block> o => new OutputSelector<Block>(this, this);
+        public OutputSelector<TNext, Block<TNext>> o => new OutputSelector<TNext, Block<TNext>>(this, this);
 
-        public Block? Z => Execute();
+        public TNext Z => _parent;
     }
 }

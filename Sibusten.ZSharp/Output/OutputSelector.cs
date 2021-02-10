@@ -18,9 +18,9 @@ namespace Sibusten.ZSharp.Output
         /// <summary>
         /// Console.Write
         /// </summary>
-        public VariableSelector<TNext> c => new VariableSelector<TNext>(_block, variable =>
+        public VariableSelector<TNext> c => new VariableSelector<TNext>(variableCallback =>
         {
-            Console.Write(variable);
+            _block.AddStatement(context => Console.Write(variableCallback(context)));
             return _next;
         });
 
@@ -28,9 +28,9 @@ namespace Sibusten.ZSharp.Output
         /// Console.WriteLine
         /// </summary>
         /// <value></value>
-        public VariableSelector<TNext> C => new VariableSelector<TNext>(_block, variable =>
+        public VariableSelector<TNext> C => new VariableSelector<TNext>(variableCallback =>
         {
-            Console.WriteLine(variable);
+            _block.AddStatement(context => Console.WriteLine(variableCallback(context)));
             return _next;
         });
     }

@@ -5,16 +5,12 @@ namespace Sibusten.ZSharp.Variables.Operators
 {
     public class OperatorSelector<TNext> : Chainable<object, TNext>
     {
-        private readonly Block _block;
+        public OperatorSelector(Func<Func<Block, object>, TNext> callback) : base(callback) { }
 
-        public OperatorSelector(Block block, Func<object, TNext> callback) : base(callback)
-        {
-            _block = block;
-        }
+        public VariableSelector<VariableSelector<TNext>> a => new VariableSelector<VariableSelector<TNext>>(firstVarCallback =>
+            new VariableSelector<TNext>(secondVarCallback =>
+                Callback(context => (dynamic)firstVarCallback(context) + (dynamic)secondVarCallback(context))));
 
-        public VariableSelector<VariableSelector<TNext>> a => new VariableSelector<VariableSelector<TNext>>(_block, variable1 =>
-            new VariableSelector<TNext>(_block, variable2 =>
-                Callback((dynamic)variable1 + (dynamic)variable2)));
-        public VariableSelector<TNext> n => new VariableSelector<TNext>(_block, variable => Callback(!(dynamic)variable));
+        public VariableSelector<TNext> n => new VariableSelector<TNext>(variableCallback => Callback(context => !(dynamic)variableCallback(context)));
     }
 }

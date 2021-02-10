@@ -9,32 +9,42 @@ namespace Sibusten.ZSharp.Flow
     {
         internal const int MaxRegisters = 52;
 
+        private readonly Block? _parent;
         internal object[] Registers = new object[MaxRegisters];
-
         private List<Action<Block>> _statements = new List<Action<Block>>();
+
+        public Block(Block? parent = null)
+        {
+            _parent = parent;
+        }
 
         public void AddStatement(Action<Block> statement)
         {
             _statements.Add(statement);
         }
 
-        public void Execute()
+        private Block? Execute()
         {
             foreach (Action<Block> statement in _statements)
             {
                 statement(this);
             }
+
+            // TODO: Block shouldn't be executed by itself. Need a top level class to start the whole thing
+            return _parent;
         }
 
-        public RegisterSelector<VariableSelector<Block>> s => new RegisterSelector<VariableSelector<Block>>(register =>
+        public RegisterSelector<VariableSelector<Block>> s => new RegisterSelector<VariableSelector<Block>>(registerCallback =>
         {
-            return new VariableSelector<Block>(this, variable =>
+            return new VariableSelector<Block>(variableCallback =>
             {
-                Registers[register] = variable;
+                AddStatement(context => context.Registers[registerCallback(context)] = variableCallback(context));
                 return this;
             });
         });
 
         public OutputSelector<Block> o => new OutputSelector<Block>(this, this);
+
+        public Block? Z => Execute();
     }
 }

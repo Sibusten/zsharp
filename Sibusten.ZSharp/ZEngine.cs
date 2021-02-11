@@ -1,3 +1,4 @@
+using Sibusten.ZSharp;
 using Sibusten.ZSharp.Flow;
 
 public static class Z
@@ -12,6 +13,10 @@ public static class Z
         }
     }
 
+}
+
+namespace Sibusten.ZSharp
+{
     public class ZEngine
     {
         public Block<ZEngine>? RootBlock;

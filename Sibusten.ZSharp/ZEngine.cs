@@ -8,7 +8,8 @@ public static class Z
         get
         {
             ZEngine engine = new ZEngine();
-            engine.RootBlock = new Block<ZEngine>(engine);
+            Context globalContext = new Context();
+            engine.RootBlock = new Block<ZEngine>(engine, globalContext);
             return engine.RootBlock;
         }
     }

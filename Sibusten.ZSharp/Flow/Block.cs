@@ -9,11 +9,12 @@ namespace Sibusten.ZSharp.Flow
     {
         private readonly TNext _parent;
         private List<Action<Context>> _statements = new List<Action<Context>>();
-        private Context _context = new Context();
+        private Context _context;
 
-        public Block(TNext parent)
+        public Block(TNext parent, Context globalContext)
         {
             _parent = parent;
+            _context = new Context(globalContext);
         }
 
         public void AddStatement(Action<Context> statement)
@@ -42,10 +43,18 @@ namespace Sibusten.ZSharp.Flow
 
         public VariableSelector<Block<IfStatement<Block<TNext>>>> i => new VariableSelector<Block<IfStatement<Block<TNext>>>>(conditionCallback =>
         {
-            IfStatement<Block<TNext>> ifStatement = new IfStatement<Block<TNext>>(this, conditionCallback);
+            IfStatement<Block<TNext>> ifStatement = new IfStatement<Block<TNext>>(this, _context.GlobalContext, conditionCallback);
             AddStatement(context => ifStatement.Execute(context));
 
             return ifStatement.IfBlock;
+        });
+
+        public VariableSelector<Block<Block<TNext>>> w => new VariableSelector<Block<Block<TNext>>>(conditionCallback =>
+        {
+            WhileLoop<Block<TNext>> whileLoop = new WhileLoop<Block<TNext>>(this, _context.GlobalContext, conditionCallback);
+            AddStatement(context => whileLoop.Execute(context));
+
+            return whileLoop.WhileBlock;
         });
 
         public TNext Z => _parent;

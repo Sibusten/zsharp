@@ -6,13 +6,13 @@ namespace Sibusten.ZSharp.Flow
     {
         private readonly TNext _next;
 
-        public IfStatement(TNext next, Func<Context, object> conditionCallback)
+        public IfStatement(TNext next, Context globalContext, Func<Context, object> conditionCallback)
         {
             _next = next;
 
             ConditionCallback = conditionCallback;
-            IfBlock = new Block<IfStatement<TNext>>(this);
-            ElseBlock = new Block<TNext>(next);
+            IfBlock = new Block<IfStatement<TNext>>(this, globalContext);
+            ElseBlock = new Block<TNext>(next, globalContext);
         }
 
         internal void Execute(Context context)

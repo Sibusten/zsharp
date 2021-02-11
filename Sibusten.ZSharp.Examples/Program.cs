@@ -32,5 +32,5 @@ _=Z.z  // Begin program
     .Z  // End if
 .Z.z;  // End program
 
-// Using numbers
-_=Z.z.s.a.n.f.Z.o.C.r.a.s.b.o.a.r.a.n.b.Z.o.C.r.b.Z.z;
+// Set 'a' to '5' and print. Set 'b' to 'a + 1' and print. Set 'c' to 'b + (-2)' and print.
+_=Z.z.s.a.n.f.Z.p.o.C.r.a.s.b.o.a.r.a.n.b.Z.p.o.C.r.b.s.c.o.a.r.b.n.c.Z.n.o.C.r.c.Z.z;

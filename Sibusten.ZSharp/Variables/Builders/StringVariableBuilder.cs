@@ -88,6 +88,10 @@ namespace Sibusten.ZSharp.Variables.Builders
             _svb = svb;
         }
 
+        /// <summary>
+        /// Digit
+        /// </summary>
+        public DigitEntry<TNext> d => new DigitEntry<TNext>(_svb);
         public StringVariableBuilder<TNext> e => _svb.AppendChar('!');
         public StringVariableBuilder<TNext> n => _svb.AppendChar('\n');
         public StringVariableBuilder<TNext> s => _svb.AppendChar(' ');
@@ -98,5 +102,65 @@ namespace Sibusten.ZSharp.Variables.Builders
         /// Finish the string entry
         /// </summary>
         public TNext z => _svb.Callback(context => _svb.GetString());
+    }
+
+    public class DigitEntry<TNext>
+    {
+        private StringVariableBuilder<TNext> _svb;
+
+        public DigitEntry(StringVariableBuilder<TNext> svb)
+        {
+            _svb = svb;
+        }
+
+        /// <summary>
+        /// 0
+        /// </summary>
+        public StringVariableBuilder<TNext> a => _svb.AppendChar('0');
+
+        /// <summary>
+        /// 1
+        /// </summary>
+        public StringVariableBuilder<TNext> b => _svb.AppendChar('1');
+
+        /// <summary>
+        /// 2
+        /// </summary>
+        public StringVariableBuilder<TNext> c => _svb.AppendChar('2');
+
+        /// <summary>
+        /// 3
+        /// </summary>
+        public StringVariableBuilder<TNext> d => _svb.AppendChar('3');
+
+        /// <summary>
+        /// 4
+        /// </summary>
+        public StringVariableBuilder<TNext> e => _svb.AppendChar('4');
+
+        /// <summary>
+        /// 5
+        /// </summary>
+        public StringVariableBuilder<TNext> f => _svb.AppendChar('5');
+
+        /// <summary>
+        /// 6
+        /// </summary>
+        public StringVariableBuilder<TNext> g => _svb.AppendChar('6');
+
+        /// <summary>
+        /// 7
+        /// </summary>
+        public StringVariableBuilder<TNext> h => _svb.AppendChar('7');
+
+        /// <summary>
+        /// 8
+        /// </summary>
+        public StringVariableBuilder<TNext> i => _svb.AppendChar('8');
+
+        /// <summary>
+        /// 9
+        /// </summary>
+        public StringVariableBuilder<TNext> j => _svb.AppendChar('9');
     }
 }

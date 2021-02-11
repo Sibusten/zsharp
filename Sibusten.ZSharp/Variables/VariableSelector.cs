@@ -26,7 +26,24 @@ namespace Sibusten.ZSharp.Variables
             }));
         });
         public OperatorSelector<TNext> o => new OperatorSelector<TNext>(operatorCallback => Callback(context => operatorCallback(context)));
-        public RegisterSelector<TNext> r => new RegisterSelector<TNext>(registerCallback => Callback(context => context.Registers[registerCallback(context)]));
+
+        public RegisterTypeSelector<RegisterSelector<TNext>> r => new RegisterTypeSelector<RegisterSelector<TNext>>(registerTypeCallback =>
+        {
+            return new RegisterSelector<TNext>(registerCallback => Callback(context =>
+            {
+                bool useGlobal = registerTypeCallback(context);
+
+                if (useGlobal)
+                {
+                    return context.GlobalContext.Registers[registerCallback(context)];
+                }
+                else
+                {
+                    return context.Registers[registerCallback(context)];
+                }
+            }));
+        });
+
         public StringVariableBuilder<TNext> s => new StringVariableBuilder<TNext>(valueCallback => Callback(context => valueCallback(context)));
     }
 }

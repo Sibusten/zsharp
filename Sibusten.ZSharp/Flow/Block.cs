@@ -30,12 +30,28 @@ namespace Sibusten.ZSharp.Flow
             }
         }
 
-        public RegisterSelector<VariableSelector<Block<TNext>>> s => new RegisterSelector<VariableSelector<Block<TNext>>>(registerCallback =>
+        public RegisterTypeSelector<RegisterSelector<VariableSelector<Block<TNext>>>> s => new RegisterTypeSelector<RegisterSelector<VariableSelector<Block<TNext>>>>(registerTypeCallback =>
         {
-            return new VariableSelector<Block<TNext>>(variableCallback =>
+            return new RegisterSelector<VariableSelector<Block<TNext>>>(registerCallback =>
             {
-                AddStatement(context => context.Registers[registerCallback(context)] = variableCallback(context));
-                return this;
+                return new VariableSelector<Block<TNext>>(variableCallback =>
+                {
+                    AddStatement(context =>
+                    {
+                        bool useGlobal = registerTypeCallback(context);
+
+                        if (useGlobal)
+                        {
+                            context.GlobalContext.Registers[registerCallback(context)] = variableCallback(context);
+                        }
+                        else
+                        {
+                            context.Registers[registerCallback(context)] = variableCallback(context);
+                        }
+                    });
+
+                    return this;
+                });
             });
         });
 

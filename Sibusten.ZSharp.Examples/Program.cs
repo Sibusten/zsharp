@@ -34,3 +34,28 @@ _=Z.z  // Begin program
 
 // Set 'a' to '5' and print. Set 'b' to 'a + 1' and print. Set 'c' to 'b + (-2)' and print.
 _=Z.z.s.g.a.n.f.Z.p.o.C.r.g.a.s.g.b.o.a.r.g.a.n.b.Z.p.o.C.r.g.b.s.g.c.o.a.r.g.b.n.c.Z.n.o.C.r.g.c.Z.z;
+
+// Print the first 20 numbers in the Fibonacci sequence
+_=Z.z.s.g.a.n.a.Z.p.s.g.b.n.b.Z.p.s.g.i.n.a.Z.p.o.c.s.Z.d.a.Z.s.Z.d.b.Z.s.Z.z.w.o.l.r.g.i.n.b.i.Z.p.s.g.c.o.a.r.g.a.r.g.b.s.g.a.r.g.b.s.g.b.r.g.c.o.c.r.g.c.o.c.s.Z.s.Z.z.s.g.i.o.a.r.g.i.n.b.Z.p.Z.o.C.s.Z.z.Z.z;
+
+// Fibonacci with spacing
+_=Z.z
+    .s.g.a .n.a.Z.p  // Set global 'a': 0
+    .s.g.b. n.b.Z.p  // Set global 'b': 1
+    .s.g.i. n.a.Z.p  // Set global 'i': 0
+
+    .o.c .s.Z.d.a.Z.s.Z.d.b.Z.s.Z.z  // Output '0 1 '
+
+    .w .o.l .r.g.i .n.b.i.Z.p  // while global 'i' < 18
+        .s.g.c .o.a .r.g.a. r.g.b  // Set global 'c': global 'a' + global 'b'
+        .s.g.a .r.g.b  // Set global 'a': global 'b'
+        .s.g.b .r.g.c  // Set global 'b': global 'c'
+
+        .o.c .r.g.c  // Output global 'c'
+        .o.c .s.Z.s.Z.z  // Output space
+
+        .s.g.i .o.a .r.g.i .n.b.Z.p  // Set global 'i': global 'i' + 1
+    .Z  // End while
+
+    .o.C .s.Z.z  // Output newline
+.Z.z;  // End program
